@@ -10,10 +10,13 @@ areas = [
   9,
   10,
   12,
+  13,
   1000,
+  1001,
   15324,
+  128399,
   1000000,
 ]
 
 for area in areas:
-  print('area: {} | solution: {}'.format(area, solution.solution(area)))
+    print('area: {} | solution: {}'.format(area, solution.solution(area)))
