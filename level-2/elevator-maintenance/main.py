@@ -1,4 +1,4 @@
-import solution
+from solution import solution
 
 items = [
     ["1.1.2", "1.0", "1.3.3", "1.0.12", "1.0.2"],
@@ -7,4 +7,4 @@ items = [
 ]
 
 for versions in items:
-    print('versions: {} \nresult: {}\n-----------'.format(versions, solution.solution(versions)))
+    print('versions: {} \nresult: {}\n-----------'.format(versions, solution(versions)))
