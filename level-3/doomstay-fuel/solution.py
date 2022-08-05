@@ -39,11 +39,19 @@ class MarkovChain:
         return absorbing
 
     @property
-    def absorbing_rows(self):
-        rows = []
+    def transient_row_indexes(self):
+        indexes = []
         for i, row in enumerate(self.probabilities.matrix):
-            if self.is_absorbing_row(row, i):
-                rows.append(row)
+            if not self.is_absorbing_row(row, i):
+                indexes.append(i)
+        return indexes
+
+    @property
+    def transient_rows(self):
+        indexes = self.transient_row_indexes
+        rows = []
+        for i in indexes:
+            rows.append(self.probabilities.matrix[i])
         return rows
     
     @property
@@ -55,12 +63,20 @@ class MarkovChain:
         return indexes
 
     @property
-    def absorbing_states_count(self):
-        return len(self.absorbing_rows)
+    def absorbing_rows(self):
+        indexes = self.absorbing_row_indexes
+        rows = []
+        for i in indexes:
+            rows.append(self.probabilities.matrix[i])
+        return rows
 
     @property
     def transient_states_count(self):
-        return self.probabilities.cols_count - self.absorbing_states_count
+        return len(self.transient_row_indexes)
+
+    @property
+    def absorbing_states_count(self):
+        return len(self.absorbing_row_indexes)
 
 def get_probabilities(m):
     probabilities = []
@@ -81,8 +97,10 @@ def solution(m):
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
     markov_chain = MarkovChain(probabilities)
-    print('markov_chain.absorbing_rows: {}'.format(markov_chain.absorbing_rows))
+    print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
+    print('markov_chain.transient_rows: {}'.format(markov_chain.transient_rows))
     print('markov_chain.absorbing_row_indexes: {}'.format(markov_chain.absorbing_row_indexes))
+    print('markov_chain.absorbing_rows: {}'.format(markov_chain.absorbing_rows))
     print('markov_chain.absorbing_states_count: {}'.format(markov_chain.absorbing_states_count))
     print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
     return 0
