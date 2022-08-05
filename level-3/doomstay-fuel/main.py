@@ -35,3 +35,14 @@ assert solution(
 assert solution([
     [0],
 ]) == [1, 1]
+
+assert solution([
+    [0, 1],
+    [0, 0],
+]) == [1, 1]
+
+assert solution([
+    [0, 0, 1],
+    [0, 0, 0],
+    [0, 0, 0],
+]) == [0, 1, 1]
