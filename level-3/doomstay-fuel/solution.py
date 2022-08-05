@@ -20,8 +20,12 @@ class Matrix:
         return self.matrix
     
     @property
-    def cols_count(self):
+    def rows_count(self):
         return len(self.matrix)
+
+    @property
+    def cols_count(self):
+        return len(self.matrix[0])
 
     @staticmethod
     def identity(n):
@@ -30,6 +34,17 @@ class Matrix:
             m_row = []
             for j in range(n):
                 m_row.append(1 if i == j else 0)
+            m.append(m_row)
+        return Matrix(m)
+
+    def __sub__(self, other):
+        if self.rows_count != other.rows_count or self.cols_count != other.cols_count:
+            raise TypeError('Can\'t subtract {}x{} matrix from {}x{} matrix'.format(self.rows_count, self.cols_count, other.rows_count, other.cols_count))
+        m = []
+        for i in range(self.rows_count):
+            m_row = []
+            for j in range(self.cols_count):
+                m_row.append(self.matrix[i][j] - other.matrix[i][j])
             m.append(m_row)
         return Matrix(m)
 
@@ -139,4 +154,9 @@ def solution(m):
     print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
     print('markov_chain.q.matrix: {}'.format(markov_chain.q.matrix))
     print('markov_chain.r.matrix: {}'.format(markov_chain.r.matrix))
+
+    print('markov_chain.q.rows_count: {}'.format(markov_chain.q.rows_count))
+    iq = Matrix.identity(markov_chain.q.rows_count) - markov_chain.q
+    print('iq.matrix: {}'.format(iq.matrix))
+
     return 0
