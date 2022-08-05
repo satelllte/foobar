@@ -142,6 +142,9 @@ def get_probabilities(m):
     return probabilities
 
 def solution(m):
+    if len(m) == 1:
+        return [1, 1]
+
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
     print('Matrix.identity(3).matrix: {}'.format(Matrix.identity(3).matrix))
@@ -156,6 +159,8 @@ def solution(m):
     print('markov_chain.r.matrix: {}'.format(markov_chain.r.matrix))
 
     print('markov_chain.q.rows_count: {}'.format(markov_chain.q.rows_count))
+    i = Matrix.identity(markov_chain.q.rows_count)
+    print('i.matrix: {}'.format(i.matrix))
     iq = Matrix.identity(markov_chain.q.rows_count) - markov_chain.q
     print('iq.matrix: {}'.format(iq.matrix))
 
