@@ -27,14 +27,40 @@ class MarkovChain:
     def __init__(self, probabilities):
         self.probabilities = probabilities
     
+    @staticmethod
+    def is_absorbing_row(row, index):
+        if row[index] != 1:
+            return False
+
+        absorbing = True
+        for i, value in enumerate(row):
+            if i != index and value != 0:
+                absorbing = False
+        return absorbing
+
+    @property
+    def absorbing_rows(self):
+        rows = []
+        for i, row in enumerate(self.probabilities.matrix):
+            if self.is_absorbing_row(row, i):
+                rows.append(row)
+        return rows
+    
+    @property
+    def absorbing_row_indexes(self):
+        indexes = []
+        for i, row in enumerate(self.probabilities.matrix):
+            if self.is_absorbing_row(row, i):
+                indexes.append(i)
+        return indexes
+
     @property
     def absorbing_states_count(self):
-        # TODO: ...
-        return 1
+        return len(self.absorbing_rows)
 
     @property
     def transient_states_count(self):
-        return len(self.probabilities.cols_count) - self.absorbing_states_count
+        return self.probabilities.cols_count - self.absorbing_states_count
 
 def get_probabilities(m):
     probabilities = []
@@ -55,5 +81,8 @@ def solution(m):
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
     markov_chain = MarkovChain(probabilities)
-    # print('markov_chain: {}'.format(markov_chain))
+    print('markov_chain.absorbing_rows: {}'.format(markov_chain.absorbing_rows))
+    print('markov_chain.absorbing_row_indexes: {}'.format(markov_chain.absorbing_row_indexes))
+    print('markov_chain.absorbing_states_count: {}'.format(markov_chain.absorbing_states_count))
+    print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
     return 0
