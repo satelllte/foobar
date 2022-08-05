@@ -23,6 +23,16 @@ class Matrix:
     def cols_count(self):
         return len(self.matrix)
 
+    @staticmethod
+    def identity(n):
+        m = []
+        for i in range(n):
+            m_row = []
+            for j in range(n):
+                m_row.append(1 if i == j else 0)
+            m.append(m_row)
+        return Matrix(m)
+
 class MarkovChain:
     def __init__(self, probabilities):
         self.probabilities = probabilities
@@ -119,6 +129,7 @@ def get_probabilities(m):
 def solution(m):
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
+    print('Matrix.identity(3).matrix: {}'.format(Matrix.identity(3).matrix))
     markov_chain = MarkovChain(probabilities)
     print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
     print('markov_chain.transient_rows: {}'.format(markov_chain.transient_rows))
