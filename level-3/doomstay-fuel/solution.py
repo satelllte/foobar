@@ -1,5 +1,7 @@
 # MarkovChain:
 # - constructor(p)
+# - transient states count
+# - absorbing states count
 # - fundamental_matrix
 # - absorbing_states
 # - absorbing_probabilities
@@ -8,6 +10,31 @@
 # - subtract
 # - multiply
 # - inverse
+
+class Matrix:
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    @property
+    def matrix(self):
+        return self.matrix
+    
+    @property
+    def cols_count(self):
+        return len(self.matrix)
+
+class MarkovChain:
+    def __init__(self, probabilities):
+        self.probabilities = probabilities
+    
+    @property
+    def absorbing_states_count(self):
+        # TODO: ...
+        return 1
+
+    @property
+    def transient_states_count(self):
+        return len(self.probabilities.cols_count) - self.absorbing_states_count
 
 def get_probabilities(m):
     probabilities = []
@@ -25,6 +52,8 @@ def get_probabilities(m):
     return probabilities
 
 def solution(m):
-    p = get_probabilities(m)
-    print('p: {}'.format(p))
+    probabilities = Matrix(get_probabilities(m))
+    print('probabilities.matrix: {}'.format(probabilities.matrix))
+    markov_chain = MarkovChain(probabilities)
+    # print('markov_chain: {}'.format(markov_chain))
     return 0
