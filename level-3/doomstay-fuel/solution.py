@@ -89,6 +89,18 @@ class MarkovChain:
             q.append(q_row)
         return Matrix(q)
 
+    @property
+    def r(self):
+        t = self.transient_states_count
+        a = self.absorbing_states_count
+        r = []
+        for row in self.transient_rows:
+            r_row = []
+            for j in range(t, t+a):
+                r_row.append(row[j])
+            r.append(r_row)
+        return Matrix(r)
+
 def get_probabilities(m):
     probabilities = []
 
@@ -115,4 +127,5 @@ def solution(m):
     print('markov_chain.absorbing_states_count: {}'.format(markov_chain.absorbing_states_count))
     print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
     print('markov_chain.q.matrix: {}'.format(markov_chain.q.matrix))
+    print('markov_chain.r.matrix: {}'.format(markov_chain.r.matrix))
     return 0
