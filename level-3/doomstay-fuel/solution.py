@@ -161,7 +161,7 @@ def solution(m):
     print('markov_chain.q.rows_count: {}'.format(markov_chain.q.rows_count))
     i = Matrix.identity(markov_chain.q.rows_count)
     print('i.matrix: {}'.format(i.matrix))
-    iq = Matrix.identity(markov_chain.q.rows_count) - markov_chain.q
+    iq = i - markov_chain.q
     print('iq.matrix: {}'.format(iq.matrix))
 
     return 0
