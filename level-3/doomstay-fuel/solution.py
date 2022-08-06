@@ -55,7 +55,20 @@ class Matrix:
             for item in row[:j] + row[j+1:]:
                 minor_matrix_row.append(item)
             minor_matrix.append(minor_matrix_row)
-        return minor_matrix
+        return Matrix(minor_matrix)
+    
+    def get_determinant(self):
+        if self.rows_count == 1:
+            return self.matrix[0][0]
+        if self.rows_count == 2:
+            return self.matrix[0][0]*self.matrix[1][1] - self.matrix[0][1]*self.matrix[1][0]
+        
+        determinant = 0
+        for i in range(self.cols_count):
+            minor_matrix = self.get_minor_matrix(0, i)
+            determinant += (((-1) ** i) * self.matrix[0][i] * minor_matrix.get_determinant())
+
+        return determinant
 
 class MarkovChain:
     def __init__(self, probabilities):
@@ -156,7 +169,8 @@ def solution(m):
 
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
-    print('probabilities.get_minor_matrix(0,0): {}'.format(probabilities.get_minor_matrix(0,0)))
+    print('probabilities.get_minor_matrix(0,0).matrix: {}'.format(probabilities.get_minor_matrix(0,0).matrix))
+    print('probabilities.get_determinant(): {}'.format(probabilities.get_determinant()))
     print('Matrix.identity(3).matrix: {}'.format(Matrix.identity(3).matrix))
     markov_chain = MarkovChain(probabilities)
     print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
