@@ -28,6 +28,16 @@ class Matrix:
         return len(self.matrix[0])
 
     @staticmethod
+    def zero(rows, cols):
+        m = []
+        for i in range(rows):
+            m_row = []
+            for j in range(cols):
+                m_row.append(0)
+            m.append(m_row)
+        return Matrix(m)
+
+    @staticmethod
     def identity(n):
         m = []
         for i in range(n):
@@ -70,6 +80,13 @@ class Matrix:
 
         return determinant
     
+    def get_transposed(self):
+        m = Matrix.zero(self.rows_count, self.cols_count)
+        for i in range(self.rows_count):
+            for j in range(i, self.cols_count):
+                m.matrix[i][j], m.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
+        return m
+
     def transpose(self):
         for i in range(self.rows_count):
             for j in range(i, self.cols_count):
@@ -179,10 +196,7 @@ def solution(m):
     )
 
     print('test_matrix.matrix: {}'.format(test_matrix.matrix))
-    test_matrix.transpose()
-    print('test_matrix.matrix (transposed): {}'.format(test_matrix.matrix))
-    test_matrix.transpose()
-    print('test_matrix.matrix (transposed back): {}'.format(test_matrix.matrix))
+    print('test_matrix.get_transposed().matrix: {}'.format(test_matrix.get_transposed().matrix))
 
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
