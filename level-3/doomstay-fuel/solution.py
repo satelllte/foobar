@@ -120,6 +120,7 @@ class MarkovChain:
     
     @staticmethod
     def is_absorbing_row(row, index):
+        return max(row) == 0
         if row[index] != 1:
             return False
 
@@ -209,12 +210,16 @@ def get_probabilities(m):
     for i, row in enumerate(m):
         probabilities_row = []
         row_sum = sum(row)
+        print('row_sum: {}'.format(row_sum))
         for j, value in enumerate(row):
             if row_sum > 0:
                 probabilities_row.append(float(value) / row_sum)
             else:
-                probabilities_row.append(float(1) if i == j else float(0))
+                # probabilities_row.append(float(1) if i == j else float(0))
+                probabilities_row.append(float(0))
         probabilities.append(probabilities_row)
+
+    print('get_probabilities -> probabilities: {}'.format(probabilities))
 
     return probabilities
 
@@ -237,6 +242,8 @@ def solution(m):
         return [1, 1]
 
     probabilities = Matrix(get_probabilities(m))
+    # print('get_probabilities(m): '.format(get_probabilities(m)))
+    print('probabilities.matrix: '.format(probabilities.matrix))
     markov_chain = MarkovChain(probabilities)
 
     if 0 in markov_chain.absorbing_row_indexes:
