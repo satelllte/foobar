@@ -1,15 +1,4 @@
-# MarkovChain:
-# - constructor(p)
-# - transient states count
-# - absorbing states count
-# - fundamental_matrix
-# - absorbing_states
-# - absorbing_probabilities
-# Matrix:
-# - constructor(2x array)
-# - subtract
-# - multiply
-# - inverse
+from fractions import Fraction
 
 class Matrix:
     def __init__(self, matrix):
@@ -25,7 +14,10 @@ class Matrix:
 
     @property
     def cols_count(self):
-        return len(self.matrix[0])
+        if self.rows_count:
+            return len(self.matrix[0])
+        else:
+            return 0
 
     @staticmethod
     def zero(rows, cols):
@@ -222,25 +214,34 @@ def get_probabilities(m):
 
     return probabilities
 
+def gcd(a, b):
+    while b:
+        a, b = b, a%b
+    return a
+
+def lcm(a, b):
+    return a * b / gcd(a, b)
+
+def lcm_list(list):
+    lcm = 1
+    for i in list:
+        lcm = lcm * i / gcd(lcm, i)
+    return lcm
+
 def solution(m):
     if len(m) == 1:
         return [1, 1]
 
     probabilities = Matrix(get_probabilities(m))
-    print('probabilities.matrix: {}'.format(probabilities.matrix))
     markov_chain = MarkovChain(probabilities)
-    print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
-    print('markov_chain.transient_rows: {}'.format(markov_chain.transient_rows))
-    print('markov_chain.absorbing_row_indexes: {}'.format(markov_chain.absorbing_row_indexes))
-    print('markov_chain.absorbing_rows: {}'.format(markov_chain.absorbing_rows))
-    print('markov_chain.absorbing_states_count: {}'.format(markov_chain.absorbing_states_count))
-    print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
-    print('markov_chain.q.matrix: {}'.format(markov_chain.q.matrix))
-    print('markov_chain.r.matrix: {}'.format(markov_chain.r.matrix))
-    print('markov_chain.fundamental_matrix.matrix: {}'.format(markov_chain.fundamental_matrix.matrix))
-    print('markov_chain.absorption_probabilities.matrix: {}'.format(markov_chain.absorption_probabilities.matrix))
 
     final_probabilities = markov_chain.absorption_probabilities.matrix[0]
-    print('final_probabilities: {}'.format(final_probabilities))
+    fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
+    final_denominator = lcm_list([fraction.denominator for fraction in fractions])
 
-    return 0
+    result = []
+    for fraction in fractions:
+        result.append(fraction.numerator * (final_denominator / fraction.denominator))
+    result.append(final_denominator)
+
+    return result
