@@ -64,9 +64,9 @@ class Matrix:
             return self.matrix[0][0]*self.matrix[1][1] - self.matrix[0][1]*self.matrix[1][0]
         
         determinant = 0
-        for i in range(self.cols_count):
-            minor_matrix = self.get_minor_matrix(0, i)
-            determinant += (((-1) ** i) * self.matrix[0][i] * minor_matrix.get_determinant())
+        for j in range(self.cols_count):
+            minor_matrix = self.get_minor_matrix(0, j)
+            determinant += (((-1) ** j) * self.matrix[0][j] * minor_matrix.get_determinant())
 
         return determinant
 
