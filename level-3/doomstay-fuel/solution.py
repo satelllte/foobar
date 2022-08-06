@@ -48,6 +48,15 @@ class Matrix:
             m.append(m_row)
         return Matrix(m)
 
+    def get_minor_matrix(self, i, j):
+        minor_matrix = []
+        for row in self.matrix[:i] + self.matrix[i+1:]:
+            minor_matrix_row = []
+            for item in row[:j] + row[j+1:]:
+                minor_matrix_row.append(item)
+            minor_matrix.append(minor_matrix_row)
+        return minor_matrix
+
 class MarkovChain:
     def __init__(self, probabilities):
         self.probabilities = probabilities
@@ -147,6 +156,7 @@ def solution(m):
 
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
+    print('probabilities.get_minor_matrix(0,0): {}'.format(probabilities.get_minor_matrix(0,0)))
     print('Matrix.identity(3).matrix: {}'.format(Matrix.identity(3).matrix))
     markov_chain = MarkovChain(probabilities)
     print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
@@ -163,5 +173,6 @@ def solution(m):
     print('i.matrix: {}'.format(i.matrix))
     iq = i - markov_chain.q
     print('iq.matrix: {}'.format(iq.matrix))
+    print('iq.get_minor_matrix(0,0): {}'.format(iq.get_minor_matrix(0,0)))
 
     return 0
