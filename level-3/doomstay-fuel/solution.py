@@ -182,6 +182,13 @@ class MarkovChain:
                 r_row.append(row[j])
             r.append(r_row)
         return Matrix(r)
+    
+    @property
+    def fundamental_matrix(self):
+        q = self.q
+        i = Matrix.identity(q.rows_count)
+        n = (i - q).get_inversed()
+        return n
 
 def get_probabilities(m):
     probabilities = []
@@ -233,5 +240,6 @@ def solution(m):
     iq = i - markov_chain.q
     print('iq.matrix: {}'.format(iq.matrix))
     print('iq.get_minor_matrix(0,0): {}'.format(iq.get_minor_matrix(0,0)))
+    print('markov_chain.fundamental_matrix.matrix: {}'.format(markov_chain.fundamental_matrix.matrix))
 
     return 0
