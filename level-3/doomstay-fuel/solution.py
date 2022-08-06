@@ -226,21 +226,8 @@ def solution(m):
     if len(m) == 1:
         return [1, 1]
 
-    test_matrix = Matrix(
-        [[1,2,3],
-        [4,0,6],
-        [7,8,9]]
-    )
-
-    print('test_matrix.matrix: {}'.format(test_matrix.matrix))
-    print('test_matrix.get_transposed().matrix: {}'.format(test_matrix.get_transposed().matrix))
-    print('test_matrix.get_inversed().matrix: {}'.format(test_matrix.get_inversed().matrix))
-
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
-    print('probabilities.get_minor_matrix(0,0).matrix: {}'.format(probabilities.get_minor_matrix(0,0).matrix))
-    print('probabilities.get_determinant(): {}'.format(probabilities.get_determinant()))
-    print('Matrix.identity(3).matrix: {}'.format(Matrix.identity(3).matrix))
     markov_chain = MarkovChain(probabilities)
     print('markov_chain.transient_row_indexes: {}'.format(markov_chain.transient_row_indexes))
     print('markov_chain.transient_rows: {}'.format(markov_chain.transient_rows))
@@ -250,14 +237,10 @@ def solution(m):
     print('markov_chain.transient_states_count: {}'.format(markov_chain.transient_states_count))
     print('markov_chain.q.matrix: {}'.format(markov_chain.q.matrix))
     print('markov_chain.r.matrix: {}'.format(markov_chain.r.matrix))
-
-    print('markov_chain.q.rows_count: {}'.format(markov_chain.q.rows_count))
-    i = Matrix.identity(markov_chain.q.rows_count)
-    print('i.matrix: {}'.format(i.matrix))
-    iq = i - markov_chain.q
-    print('iq.matrix: {}'.format(iq.matrix))
-    print('iq.get_minor_matrix(0,0): {}'.format(iq.get_minor_matrix(0,0)))
     print('markov_chain.fundamental_matrix.matrix: {}'.format(markov_chain.fundamental_matrix.matrix))
     print('markov_chain.absorption_probabilities.matrix: {}'.format(markov_chain.absorption_probabilities.matrix))
+
+    final_probabilities = markov_chain.absorption_probabilities.matrix[0]
+    print('final_probabilities: {}'.format(final_probabilities))
 
     return 0
