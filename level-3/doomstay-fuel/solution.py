@@ -239,6 +239,9 @@ def solution(m):
     probabilities = Matrix(get_probabilities(m))
     markov_chain = MarkovChain(probabilities)
 
+    if 0 in markov_chain.absorbing_row_indexes:
+        return [1] + [0]*(len(markov_chain.absorbing_row_indexes) - 1) + [1]
+
     final_probabilities = markov_chain.absorption_probabilities.matrix[0]
     fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
     final_denominator = lcm_list([fraction.denominator for fraction in fractions])
