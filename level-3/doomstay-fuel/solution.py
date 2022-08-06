@@ -110,6 +110,10 @@ class Matrix:
 
         return m
 
+# Technique used:
+# https://en.wikipedia.org/wiki/Absorbing_Markov_chain
+# https://brilliant.org/wiki/absorbing-markov-chains/
+
 class MarkovChain:
     def __init__(self, probabilities):
         self.probabilities = probabilities
@@ -223,10 +227,10 @@ def lcm(a, b):
     return a * b / gcd(a, b)
 
 def lcm_list(list):
-    lcm = 1
+    _lcm = 1
     for i in list:
-        lcm = lcm * i / gcd(lcm, i)
-    return lcm
+        _lcm = lcm(_lcm, i)
+    return _lcm
 
 def solution(m):
     if len(m) == 1:
