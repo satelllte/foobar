@@ -1,4 +1,4 @@
-from solution import solution
+from solution2 import solution
 import foreign
 import sol
 
@@ -11,12 +11,16 @@ items = [
         [0, 1],
         [0, 0],
     ],
-    [[0, 0, 1],
-    [0, 0, 0],
-    [0, 0, 0]],
-    [[0, 0, 0],
-    [1, 0, 2],
-    [0, 0, 0]],
+    [
+        [0, 0, 1],
+        [0, 0, 0],
+        [0, 0, 0]
+    ],
+    [
+        [0, 0, 0],
+        [1, 0, 2],
+        [0, 0, 0]
+    ],
 ]
 
 for m in items:
