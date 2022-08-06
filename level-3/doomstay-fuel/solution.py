@@ -87,11 +87,6 @@ class Matrix:
                 m.matrix[i][j], m.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
         return m
 
-    def transpose(self):
-        for i in range(self.rows_count):
-            for j in range(i, self.cols_count):
-                self.matrix[i][j], self.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
-
 class MarkovChain:
     def __init__(self, probabilities):
         self.probabilities = probabilities
