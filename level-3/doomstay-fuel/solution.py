@@ -86,6 +86,24 @@ class Matrix:
             for j in range(i, self.cols_count):
                 m.matrix[i][j], m.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
         return m
+    
+    def get_inversed(self):
+        m = []
+        for i in range(self.rows_count):
+            m_row = []
+            for j in range(self.cols_count):
+                minor_matrix = self.get_minor_matrix(i, j)
+                determinant = minor_matrix.get_determinant()
+                m_row.append(((-1) ** (i + j)) * determinant)
+            m.append(m_row)
+
+        main_determinant = self.get_determinant()
+        m = Matrix(m).get_transposed()
+        for i in range(m.rows_count):
+            for j in range(m.cols_count):
+                m.matrix[i][j] /= float(main_determinant)
+
+        return m
 
 class MarkovChain:
     def __init__(self, probabilities):
@@ -186,12 +204,13 @@ def solution(m):
 
     test_matrix = Matrix(
         [[1,2,3],
-        [4,5,6],
+        [4,0,6],
         [7,8,9]]
     )
 
     print('test_matrix.matrix: {}'.format(test_matrix.matrix))
     print('test_matrix.get_transposed().matrix: {}'.format(test_matrix.get_transposed().matrix))
+    print('test_matrix.get_inversed().matrix: {}'.format(test_matrix.get_inversed().matrix))
 
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
