@@ -57,6 +57,19 @@ class Matrix:
                 m_row.append(self.matrix[i][j] - other.matrix[i][j])
             m.append(m_row)
         return Matrix(m)
+    
+    def __mul__(self, other):
+        m = []
+        dimension = self.rows_count
+        for i in range(self.rows_count):
+            m_row = []
+            for j in range(other.cols_count):
+                product = 0
+                for selector in range(dimension):
+                    product += (self.matrix[i][selector] * other.matrix[selector][j])
+                m_row.append(product)
+            m.append(m_row)
+        return Matrix(m)
 
     def get_minor_matrix(self, i, j):
         minor_matrix = []
@@ -190,6 +203,10 @@ class MarkovChain:
         n = (i - q).get_inversed()
         return n
 
+    @property
+    def absorption_probabilities(self):
+        return self.fundamental_matrix * self.r
+
 def get_probabilities(m):
     probabilities = []
 
@@ -241,5 +258,6 @@ def solution(m):
     print('iq.matrix: {}'.format(iq.matrix))
     print('iq.get_minor_matrix(0,0): {}'.format(iq.get_minor_matrix(0,0)))
     print('markov_chain.fundamental_matrix.matrix: {}'.format(markov_chain.fundamental_matrix.matrix))
+    print('markov_chain.absorption_probabilities.matrix: {}'.format(markov_chain.absorption_probabilities.matrix))
 
     return 0
