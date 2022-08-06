@@ -69,6 +69,11 @@ class Matrix:
             determinant += (((-1) ** j) * self.matrix[0][j] * minor_matrix.get_determinant())
 
         return determinant
+    
+    def transpose(self):
+        for i in range(self.rows_count):
+            for j in range(i, self.cols_count):
+                self.matrix[i][j], self.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
 
 class MarkovChain:
     def __init__(self, probabilities):
@@ -166,6 +171,18 @@ def get_probabilities(m):
 def solution(m):
     if len(m) == 1:
         return [1, 1]
+
+    test_matrix = Matrix(
+        [[1,2,3],
+        [4,5,6],
+        [7,8,9]]
+    )
+
+    print('test_matrix.matrix: {}'.format(test_matrix.matrix))
+    test_matrix.transpose()
+    print('test_matrix.matrix (transposed): {}'.format(test_matrix.matrix))
+    test_matrix.transpose()
+    print('test_matrix.matrix (transposed back): {}'.format(test_matrix.matrix))
 
     probabilities = Matrix(get_probabilities(m))
     print('probabilities.matrix: {}'.format(probabilities.matrix))
