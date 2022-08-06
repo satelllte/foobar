@@ -164,7 +164,6 @@ def solution(m):
             non_terminal_state.append(row)
     # Replace trials by probabilties
     probabilities = replace_probability(m)
-    # print('probabilities: {}\n'.format(probabilities))
     # Get R and Q matrix
     R, Q = RQ(probabilities, terminal_state, non_terminal_state)
     IQ = subtract_Q_from_identity(Q)
