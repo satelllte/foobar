@@ -22,14 +22,9 @@ def solution(m):
     identity_matrix = np.identity(len(q_matrix))
     fundamental_matrix = np.linalg.inv(np.subtract(identity_matrix, q_matrix))
     absorption_probabilities_matrix = np.matmul(fundamental_matrix, r_matrix)
-    final_probabilities = np.array(absorption_probabilities_matrix[0,:])[0]
 
+    final_probabilities = np.array(absorption_probabilities_matrix[0,:])[0]
     fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
     final_denominator = np.lcm.reduce([fraction.denominator for fraction in fractions])
 
-    result = []
-    for fraction in fractions:
-        result.append(fraction.numerator * (final_denominator / fraction.denominator))
-    result.append(final_denominator)
-
-    return result
+    return [fraction.numerator * (final_denominator / fraction.denominator) for fraction in fractions] + [final_denominator]
