@@ -21,8 +21,8 @@ def solution(m):
     r_matrix = p_matrix[:, terminal_states]
     identity_matrix = np.identity(len(q_matrix))
     fundamental_matrix = np.linalg.inv(np.subtract(identity_matrix, q_matrix))
-    absorption_probabilities = np.matmul(fundamental_matrix, r_matrix)
-    final_probabilities = np.array(absorption_probabilities[0,:])[0]
+    absorption_probabilities_matrix = np.matmul(fundamental_matrix, r_matrix)
+    final_probabilities = np.array(absorption_probabilities_matrix[0,:])[0]
 
     fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
     final_denominator = np.lcm.reduce([fraction.denominator for fraction in fractions])
