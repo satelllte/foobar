@@ -1,257 +1,31 @@
-from fractions import Fraction
-
-class Matrix:
-    def __init__(self, matrix):
-        self.matrix = matrix
-
-    @property
-    def matrix(self):
-        return self.matrix
-    
-    @property
-    def rows_count(self):
-        return len(self.matrix)
-
-    @property
-    def cols_count(self):
-        if self.rows_count:
-            return len(self.matrix[0])
-        else:
-            return 0
-
-    @staticmethod
-    def zero(rows, cols):
-        m = []
-        for i in range(rows):
-            m_row = []
-            for j in range(cols):
-                m_row.append(0)
-            m.append(m_row)
-        return Matrix(m)
-
-    @staticmethod
-    def identity(n):
-        m = []
-        for i in range(n):
-            m_row = []
-            for j in range(n):
-                m_row.append(1 if i == j else 0)
-            m.append(m_row)
-        return Matrix(m)
-
-    def __sub__(self, other):
-        if self.rows_count != other.rows_count or self.cols_count != other.cols_count:
-            raise TypeError('Can\'t subtract {}x{} matrix from {}x{} matrix'.format(self.rows_count, self.cols_count, other.rows_count, other.cols_count))
-        m = []
-        for i in range(self.rows_count):
-            m_row = []
-            for j in range(self.cols_count):
-                m_row.append(self.matrix[i][j] - other.matrix[i][j])
-            m.append(m_row)
-        return Matrix(m)
-    
-    def __mul__(self, other):
-        m = []
-        dimension = self.rows_count
-        for i in range(self.rows_count):
-            m_row = []
-            for j in range(other.cols_count):
-                product = 0
-                for selector in range(dimension):
-                    product += (self.matrix[i][selector] * other.matrix[selector][j])
-                m_row.append(product)
-            m.append(m_row)
-        return Matrix(m)
-
-    def get_minor_matrix(self, i, j):
-        minor_matrix = []
-        for row in self.matrix[:i] + self.matrix[i+1:]:
-            minor_matrix_row = []
-            for item in row[:j] + row[j+1:]:
-                minor_matrix_row.append(item)
-            minor_matrix.append(minor_matrix_row)
-        return Matrix(minor_matrix)
-    
-    def get_determinant(self):
-        if self.rows_count == 1:
-            return self.matrix[0][0]
-        if self.rows_count == 2:
-            return self.matrix[0][0]*self.matrix[1][1] - self.matrix[0][1]*self.matrix[1][0]
-        
-        determinant = 0
-        for j in range(self.cols_count):
-            minor_matrix = self.get_minor_matrix(0, j)
-            determinant += (((-1) ** j) * self.matrix[0][j] * minor_matrix.get_determinant())
-
-        return determinant
-    
-    def get_transposed(self):
-        m = Matrix.zero(self.rows_count, self.cols_count)
-        for i in range(self.rows_count):
-            for j in range(i, self.cols_count):
-                m.matrix[i][j], m.matrix[j][i] = self.matrix[j][i], self.matrix[i][j]
-        return m
-    
-    def get_inversed(self):
-        m = []
-        for i in range(self.rows_count):
-            m_row = []
-            for j in range(self.cols_count):
-                minor_matrix = self.get_minor_matrix(i, j)
-                determinant = minor_matrix.get_determinant()
-                m_row.append(((-1) ** (i + j)) * determinant)
-            m.append(m_row)
-
-        main_determinant = self.get_determinant()
-        m = Matrix(m).get_transposed()
-        for i in range(m.rows_count):
-            for j in range(m.cols_count):
-                m.matrix[i][j] /= float(main_determinant)
-
-        return m
-
 # Technique used:
 # https://en.wikipedia.org/wiki/Absorbing_Markov_chain
 # https://brilliant.org/wiki/absorbing-markov-chains/
 
-class MarkovChain:
-    def __init__(self, probabilities):
-        self.probabilities = probabilities
-    
-    @staticmethod
-    def is_absorbing_row(row, index):
-        # return max(row) == 0
-        if row[index] != 1:
-            return False
-
-        absorbing = True
-        for i, value in enumerate(row):
-            if i != index and value != 0:
-                absorbing = False
-        return absorbing
-
-    @property
-    def transient_row_indexes(self):
-        indexes = []
-        for i, row in enumerate(self.probabilities.matrix):
-            if not self.is_absorbing_row(row, i):
-                indexes.append(i)
-        return indexes
-
-    @property
-    def transient_rows(self):
-        indexes = self.transient_row_indexes
-        rows = []
-        for i in indexes:
-            rows.append(self.probabilities.matrix[i])
-        return rows
-    
-    @property
-    def absorbing_row_indexes(self):
-        indexes = []
-        for i, row in enumerate(self.probabilities.matrix):
-            if self.is_absorbing_row(row, i):
-                indexes.append(i)
-        return indexes
-
-    @property
-    def absorbing_rows(self):
-        indexes = self.absorbing_row_indexes
-        rows = []
-        for i in indexes:
-            rows.append(self.probabilities.matrix[i])
-        return rows
-
-    @property
-    def transient_states_count(self):
-        return len(self.transient_row_indexes)
-
-    @property
-    def absorbing_states_count(self):
-        return len(self.absorbing_row_indexes)
-
-    @property
-    def q(self):
-        t = self.transient_states_count
-        q = []
-        for row in self.transient_rows:
-            q_row = []
-            for j in range(t):
-                q_row.append(row[j])
-            q.append(q_row)
-        return Matrix(q)
-
-    @property
-    def r(self):
-        t = self.transient_states_count
-        a = self.absorbing_states_count
-        r = []
-        for row in self.transient_rows:
-            r_row = []
-            for j in range(t, t+a):
-                r_row.append(row[j])
-            r.append(r_row)
-        return Matrix(r)
-    
-    @property
-    def fundamental_matrix(self):
-        q = self.q
-        i = Matrix.identity(q.rows_count)
-        n = (i - q).get_inversed()
-        return n
-
-    @property
-    def absorption_probabilities(self):
-        return self.fundamental_matrix * self.r
-
-def get_probabilities(m):
-    probabilities = []
-
-    for i, row in enumerate(m):
-        probabilities_row = []
-        row_sum = sum(row)
-        print('row_sum: {}'.format(row_sum))
-        for j, value in enumerate(row):
-            if row_sum > 0:
-                probabilities_row.append(float(value) / row_sum)
-            else:
-                probabilities_row.append(float(1) if i == j else float(0))
-                # probabilities_row.append(float(0))
-        probabilities.append(probabilities_row)
-
-    print('get_probabilities -> probabilities: {}'.format(probabilities))
-
-    return probabilities
-
-def gcd(a, b):
-    while b:
-        a, b = b, a%b
-    return a
-
-def lcm(a, b):
-    return a * b / gcd(a, b)
-
-def lcm_list(list):
-    _lcm = 1
-    for i in list:
-        _lcm = lcm(_lcm, i)
-    return _lcm
+from fractions import Fraction
+import numpy as np
 
 def solution(m):
-    if len(m) == 1:
-        return [1, 1]
+    active_states = []
+    terminal_states = []
 
-    probabilities = Matrix(get_probabilities(m))
-    # print('get_probabilities(m): '.format(get_probabilities(m)))
-    print('probabilities.matrix: '.format(probabilities.matrix))
-    markov_chain = MarkovChain(probabilities)
+    for i, row in enumerate(m):
+        (active_states if sum(row) else terminal_states).append(i)
 
-    if 0 in markov_chain.absorbing_row_indexes:
-        return [1] + [0]*(len(markov_chain.absorbing_row_indexes) - 1) + [1]
+    if 0 in terminal_states:
+        return [1] + [0]*len(terminal_states[1:]) + [1]
 
-    final_probabilities = markov_chain.absorption_probabilities.matrix[0]
+    m = np.matrix(m, dtype=float)[active_states, :]    
+    p_matrix = m / m.sum(axis=1)
+    q_matrix = p_matrix[:, active_states]
+    r_matrix = p_matrix[:, terminal_states]
+    identity_matrix = np.identity(len(q_matrix))
+    fundamental_matrix = np.linalg.inv(np.subtract(identity_matrix, q_matrix))
+    absorption_probabilities = np.matmul(fundamental_matrix, r_matrix)
+    final_probabilities = np.array(absorption_probabilities[0,:])[0]
+
     fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
-    final_denominator = lcm_list([fraction.denominator for fraction in fractions])
+    final_denominator = np.lcm.reduce([fraction.denominator for fraction in fractions])
 
     result = []
     for fraction in fractions:
