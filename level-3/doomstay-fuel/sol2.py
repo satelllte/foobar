@@ -16,12 +16,12 @@ def solution(m):
         return [1] + [0]*len(terminal_states[1:]) + [1]
 
     m = np.matrix(m, dtype=float)[active_states, :]    
-    p = m / m.sum(axis=1)
-    q = p[:, active_states]
-    r = p[:, terminal_states]
-    i = np.identity(len(q))
-    n = np.linalg.inv(np.subtract(i, q))
-    absorption_probabilities = np.matmul(n, r)
+    p_matrix = m / m.sum(axis=1)
+    q_matrix = p_matrix[:, active_states]
+    r_matrix = p_matrix[:, terminal_states]
+    identity_matrix = np.identity(len(q_matrix))
+    fundamental_matrix = np.linalg.inv(np.subtract(identity_matrix, q_matrix))
+    absorption_probabilities = np.matmul(fundamental_matrix, r_matrix)
     final_probabilities = np.array(absorption_probabilities[0,:])[0]
 
     fractions = [Fraction(i).limit_denominator() for i in final_probabilities]
