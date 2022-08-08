@@ -18,13 +18,16 @@ def solution(map):
         next_step_positions = set()
 
         for position in step_positions:
-            position_t = (position[0], position[1] - 1, position[2])
-            position_b = (position[0], position[1] + 1, position[2])
-            position_l = (position[0] - 1, position[1], position[2])
-            position_r = (position[0] + 1, position[1], position[2])
+            x,y,d = position
+
+            position_t = (x, y - 1, d)
+            position_b = (x, y + 1, d)
+            position_l = (x - 1, y, d)
+            position_r = (x + 1, y, d)
 
             for possible_position in [position_t, position_b, position_l, position_r]:
                 x,y,d = possible_position
+
                 if x < 0 or x >= w:
                     continue
                 if y < 0 or y >= h:
