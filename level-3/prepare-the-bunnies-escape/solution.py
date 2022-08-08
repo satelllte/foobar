@@ -13,7 +13,6 @@ def solution(map):
     step = 0
 
     while True:
-        finish = False
         step += 1
         next_step_positions = set()
 
