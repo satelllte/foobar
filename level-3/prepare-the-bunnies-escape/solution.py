@@ -44,12 +44,6 @@ def solution(map):
                 cache.add(possible_position)
 
                 if x == w-1 and y == h-1:
-                    finish = True
-                    break
+                    return step + 1
 
         step_positions = next_step_positions
-
-        if finish:
-            break
-
-    return step + 1
