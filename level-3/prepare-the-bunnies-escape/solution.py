@@ -39,10 +39,10 @@ def solution(map):
                 if possible_position in cache:
                     continue
 
-                next_step_positions.add(possible_position)
-                cache.add(possible_position)
-
                 if x == w-1 and y == h-1:
                     return step + 1
+
+                next_step_positions.add(possible_position)
+                cache.add(possible_position)
 
         step_positions = next_step_positions
