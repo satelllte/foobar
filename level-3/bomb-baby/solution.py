@@ -1,3 +1,22 @@
+"""
+Replication process
+-------------------------
+
+L                       R
+          (1,1)
+      (2,1) | (2,1)
+(3,1) (2,3) | (3,2) (1,3)
+
+The right side is just mirrored from left one,
+so for each step (M,F) pair can be swapped - so `M` is always more than or equal to `F` 
+
+-------------------------
+
+To speed up the evaluation process,
+floor(m/f) step size can be taken each step instead of incrementing the step by 1 each iteration.
+
+"""
+
 def solution(m, f):
     IMPOSSIBLE = 'impossible'
 
