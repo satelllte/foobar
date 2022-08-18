@@ -1,10 +1,4 @@
-from solution import solution, is_infinite_pair, is_infinite_pair_naive, is_power_of_two, gcd
-
-arr = []
-for x in range(5):
-    arr.append(x)
-
-# print('sol 100: {}'.format(solution(arr)))
+from solution import solution
 
 arr = [2,2,2,2,4]
 print('arr: {} | solution: {}'.format(arr, solution(arr)))
@@ -37,6 +31,10 @@ assert solution([5, 3]) == 2
 assert solution([3, 5, 5, 3, 5]) == 5
 assert solution([3, 5, 5, 3]) == 4
 assert solution([3, 5, 5, 3, 5, 3, 3, 5]) == 8
+
+assert solution([2,2,4]) == 1
+assert solution([2,4,2]) == 1
+assert solution([2,4,2,2,2]) == 3
 
 """
 Combinations (N) = N!
