@@ -3,7 +3,7 @@ from solution import solution
 arr = [2,2,2,2,4]
 print('arr: {} | solution: {}'.format(arr, solution(arr)))
 
-assert solution([1, 7, 3, 21, 13, 19]) == 'BREAK'
+assert solution([1, 7, 3, 21, 13, 19]) == 0
 assert solution([7, 1, 3, 21, 13, 19]) == 0
 assert solution([7, 3, 1, 21, 13, 19]) == 0
 assert solution([7, 3, 1, 13, 19, 21]) == 0
