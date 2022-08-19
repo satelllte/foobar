@@ -1,10 +1,13 @@
-import numpy as np
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
 
 def is_power_of_two(x):
     return x & (x - 1) == 0
 
 def is_infinite_pair(x, y):
-    return not is_power_of_two((x + y) / np.gcd(x, y))
+    return not is_power_of_two((x + y) / gcd(x, y))
 
 def solution_old(items):
     items = sorted(items)
