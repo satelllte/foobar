@@ -39,17 +39,18 @@ def get_base_preimage(n):
 
 def filter_preimage(preimage, numbers, mapping):
     for row in numbers:
-        next = defaultdict(int)
-        for c1 in preimage:
-            for c2 in mapping[(row, c1)]:
-                next[c2] += preimage[c1]
-        preimage = next
+        next_row = defaultdict(int)
+        for a in preimage:
+            for b in mapping[(row, a)]:
+                next_row[b] += preimage[a]
+        preimage = next_row
     return preimage
 
 def get_preimage_sum(preimage):
     return sum(preimage.values())
 
 def solution(grid):
+    grid = zip(*grid)
     cols_count = len(grid[0])
     numbers = get_numbers_from_grid(grid)
     mapping = get_mapping(cols_count, numbers)
