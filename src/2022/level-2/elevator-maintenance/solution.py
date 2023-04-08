@@ -1,4 +1,5 @@
 import re
+import functools
 
 regexX = re.compile(r'^(\d+)$')
 regexXY = re.compile(r'^(\d+)\.(\d+)$')
@@ -37,4 +38,5 @@ def compare(a, b):
             else: return 0
 
 def solution(l):
-    return sorted(l, cmp=lambda a, b: compare(a, b))
+    return sorted(l, key=functools.cmp_to_key(compare))
+
