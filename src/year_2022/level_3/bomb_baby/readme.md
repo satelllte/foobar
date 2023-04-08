@@ -1,4 +1,4 @@
-## Bomb, Baby!
+# Bomb, Baby!
 
 You're so close to destroying the LAMBCHOP doomsday device you can taste it! 
 But in order to do so, you need to deploy special self-replicating bombs 
@@ -37,16 +37,16 @@ representations of positive integers no larger than 10^50. For example,
 if M = "2" and F = "1", one generation would need to pass, so the solution 
 would be "1". However, if M = "2" and F = "4", it would not be possible.
 
-### Languages
-To provide a Java solution, edit Solution.java
+## Languages
+To provide a Java solution, edit `Solution.java`
 
-To provide a Python solution, edit solution.py
+To provide a Python solution, edit `solution.py`
 
-### Test cases
+## Test cases
 Your code should pass the following test cases.
 Note that it may also be run against hidden test cases not shown here.
 
-#### -- Python cases --
+### -- Python cases --
 #### Test case 1
 Input:
 ```
@@ -67,7 +67,7 @@ Output:
 1
 ```
 
-#### -- Java cases --
+### -- Java cases --
 #### Test case 1
 Input:
 ```
@@ -88,8 +88,8 @@ Output:
 4
 ```
 
-Use verify [file] to test your solution and see how it does.
-When you are finished editing your code, use submit [file] to submit 
+Use `verify [file]` to test your solution and see how it does.
+When you are finished editing your code, use `submit [file]` to submit 
 your answer. 
 
 If your solution passes the test cases, it will be removed from your 
