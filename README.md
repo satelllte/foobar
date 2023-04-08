@@ -1,17 +1,24 @@
-# Google FooBar
+# Google Foobar
 
-https://foobar.withgoogle.com/
+My solutions for [Google Foobar](https://foobar.withgoogle.com/) secret coding challenge.
 
-## Run solution
+## Development
 
-### 1. Go to the solution folder:
+The project uses [Python](https://www.python.org/) programming language for the solutions, so it's needed to be installed first. To make sure it's installed, run:
 
-```bash
-cd ./level-x/solution-name
+```sh
+python --version
 ```
 
-### 2. Run:
+Then, install Python dependencies of the project:
 
-```bash
-python2 main.py
+```sh
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Run tests:
+
+```sh
+pytest
 ```
