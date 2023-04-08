@@ -1,4 +1,4 @@
-from solution import solution
+from year_2022.level_1.solar_doomsday.solution import solution
 
 def test():
     assert solution(1) == [1]
