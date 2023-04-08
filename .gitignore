@@ -1,5 +1,7 @@
-# compilation files
+# python artifacts
 *.pyc
+__pycache__
+.pytest_cache
 
 # editors
 .vscode
