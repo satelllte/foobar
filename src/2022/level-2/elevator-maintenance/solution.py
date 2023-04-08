@@ -39,4 +39,3 @@ def compare(a, b):
 
 def solution(l):
     return sorted(l, key=functools.cmp_to_key(compare))
-
