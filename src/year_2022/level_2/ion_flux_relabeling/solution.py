@@ -45,4 +45,4 @@ def solve(h, p, x):
 
 def solution(h, q):
     p = 2 ** h - 1
-    return map(lambda x: solve(h, p, x), q)
+    return list(map(lambda x: solve(h, p, x), q))

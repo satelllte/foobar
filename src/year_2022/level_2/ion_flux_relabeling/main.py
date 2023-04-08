@@ -1,4 +1,4 @@
-import solution
+import solution as solution
 
 class Item:
     def __init__(self, h, q):
