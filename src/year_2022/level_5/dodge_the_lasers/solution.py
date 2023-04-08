@@ -1,3 +1,5 @@
+# Technique used: https://en.wikipedia.org/wiki/Beatty_sequence
+
 import decimal
 
 def solution(str_n):
@@ -10,7 +12,6 @@ def solution(str_n):
         sqrt2 = decimal.Decimal(2).sqrt()
         sqrt2plus2 = sqrt2 + decimal.Decimal(2)
 
-        # Beatty sequence
         def solve(n):
             if n <= 0:
                 return 0
