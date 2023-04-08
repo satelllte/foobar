@@ -1,4 +1,4 @@
-from solution import solution
+from year_2022.level_2.elevator_maintenance.solution import solution
 
 def test():
     assert solution(['1.1.2', '1.0', '1.3.3', '1.0.12', '1.0.2']) == ['1.0', '1.0.2', '1.0.12', '1.1.2', '1.3.3']
