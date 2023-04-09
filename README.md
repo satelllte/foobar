@@ -12,7 +12,7 @@ My solutions for [Google Foobar](https://foobar.withgoogle.com/) secret coding c
 | 2022 | 2 | Elevator Maintenance | [source](./src/year_2022/level_2/elevator_maintenance) |
 | 2022 | 2 | Ion Flux Relabeling | [source](./src/year_2022/level_2/ion_flux_relabeling) |
 | 2022 | 3 | Bomb Baby | [source](./src/year_2022/level_3/bomb_baby) |
-| 2022 | 3 | Doomsday Fuel | [source](./untested/level-3/doomstay-fuel) |
+| 2022 | 3 | Doomsday Fuel | [source](./src/year_2022/level_3/doomsday_fuel) |
 | 2022 | 3 | Fuel Injection Perfection | [source](./untested/level-3/fuel-injection-perfection) |
 | 2022 | 3 | Prepare The Bunnies Escape | [source](./untested/level-3/prepare-the-bunnies-escape) |
 | 2022 | 4 | Distract The Trainers | [source](./untested/level-4/distract-the-trainers/) |
