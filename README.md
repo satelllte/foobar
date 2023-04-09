@@ -39,7 +39,3 @@ Run tests:
 ```sh
 pytest -v
 ```
-
-**Note about folder structure:**
-
-The unit-tested solutions put into `src` folder, but the ones which aren't, they're just temporary placed into `untested` folder. But regardless of where they're placed here they all were verified inside Google Foobar's terminal.
