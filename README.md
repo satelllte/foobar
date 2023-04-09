@@ -2,6 +2,8 @@
 
 My solutions for [Google Foobar](https://foobar.withgoogle.com/) secret coding challenge.
 
+<img src="./static/foobar.png">
+
 ## Challenges list
 
 | Year | Level | Name | Source Code |
