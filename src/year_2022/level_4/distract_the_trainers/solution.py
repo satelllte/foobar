@@ -9,7 +9,7 @@ def is_power_of_two(x):
     return x & (x - 1) == 0
 
 def is_infinite_pair(x, y):
-    return not is_power_of_two((x + y) / gcd(x, y))
+    return not is_power_of_two(int((x + y) / gcd(x, y)))
 
 def create_graph(items):
     graph = { i: [] for i in range(len(items)) }
