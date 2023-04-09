@@ -16,7 +16,7 @@ My solutions for [Google Foobar](https://foobar.withgoogle.com/) secret coding c
 | 2022 | 3 | Fuel Injection Perfection | [source](./src/year_2022/level_3/fuel_injection_perfection) |
 | 2022 | 3 | Prepare The Bunnies Escape | [source](./src/year_2022/level_3/prepare_the_bunnies_escape) |
 | 2022 | 4 | Distract The Trainers | [source](./src/year_2022/level_4/distract_the_trainers) |
-| 2022 | 4 | Escape Pods | [source](./untested/level-4/escape-pods) |
+| 2022 | 4 | Escape Pods | [source](./src/year_2022/level_4/escape_pods) |
 | 2022 | 5 | Dodge The Lasers | [source](./src/year_2022/level_5/dodge_the_lasers) |
 
 ## Development
